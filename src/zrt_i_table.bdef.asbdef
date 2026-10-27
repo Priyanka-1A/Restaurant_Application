@@ -1,0 +1,96 @@
+managed implementation in class zbp_rt_i_table unique;
+strict ( 2 );
+with draft;
+
+define behavior for zrt_i_table alias _tables
+persistent table zrt_table
+draft table zrt_d_table
+lock master total etag LocalLastChangedAt
+authorization master ( global, instance )
+etag master LocalLastChangedAt
+{
+  create; // ( authorization : global );
+  update;
+  delete;
+//  field ( readonly ) TableId;
+  association _order { create; with draft;}
+
+  draft action Edit;
+  draft action Resume;
+  draft action Activate optimized;
+  draft action Discard;
+  draft determine action Prepare;
+//  {
+//  validation validateOrderItems;
+//  }
+ mapping for zrt_table {
+  TableId = table_id;
+  TableName = table_name;
+  Status = status;
+  LocalCreatedBy = local_created_by;
+  LocalCreatedAt = local_created_at;
+  LastChangedAt = last_changed_at;
+  LocalLastChangedAt = local_last_changed_at;
+  LocalLastChangedBy = local_last_changed_by;
+  }
+}
+
+define behavior for zrt_i_order alias _order
+persistent table zrt_order
+draft table zrt_d_order
+lock dependent by _table
+authorization dependent by _table
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( numbering : managed, readonly ) OrderId;
+  field ( readonly ) TableId, TotalAmount;
+  association _table{ with draft;}
+  association _orderitems { create; with draft;}
+
+  mapping for zrt_order {
+  OrderId = order_id;
+  TableId = table_id;
+  TotalAmount = total_amount;
+  Currency = currency;
+  OrderStatus = order_status;
+  LocalLastChangedAt = local_last_changed_at;
+}}
+
+define behavior for zrt_i_order_item alias _orderitem
+persistent table zrt_order_item
+draft table zrt_d_order_item
+lock dependent by _table
+authorization dependent by _table
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly ) OrderId, TableId, Amount;
+
+  field (numbering : managed, readonly ) ItemUuid;
+  association _order{with draft;}
+  association _table{with draft;}
+
+//  validation validateOrderItems on save { field ItemId; }
+determination CalculateAmount on modify
+{
+create;
+field quantity, unitprice;
+}
+
+  mapping for zrt_order_item {
+  OrderId = order_id;
+  ItemId = item_id;
+  TableId = tableid;
+  ItemUuid = item_uuid;
+  ItemName = item_name;
+  ItemStatus = item_status;
+  Quantity = quantity;
+  UnitPrice = unit_price;
+  Currency = currency;
+  LocalLastChangedAt = local_last_changed_at;
+  Amount = amount;
+  }
+}

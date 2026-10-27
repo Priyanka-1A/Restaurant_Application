@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Definition for Restaurent'
+define service Zrt_sd_order {
+  expose zrt_c_table      as Tables;
+  expose zrt_c_order      as Orders;
+  expose zrt_c_order_item as OrderItem;
+}

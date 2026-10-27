@@ -1,0 +1,84 @@
+@Metadata.layer: #CUSTOMER
+@UI:  { headerInfo: {
+           typeName: 'OrderItem',
+           typeNamePlural: 'OrderItems',
+           title: {
+               type: #STANDARD,
+               value: 'ItemId'
+           }},
+           presentationVariant: [{ sortOrder: [{ by: 'ItemId',
+           direction: #ASC}] }]
+        }
+
+annotate entity zrt_c_order_item with
+{
+
+  @UI.facet: [{ id: 'ItemId',
+                     purpose : #STANDARD,
+                     type : #IDENTIFICATION_REFERENCE,
+                     label : 'OrderItems',
+                     position: 10
+        }]
+
+  @UI.lineItem: [{ position: 10, importance: #HIGH }]
+  @UI.identification: [{ position: 10, importance: #HIGH  }]
+  @EndUserText.label: 'Order Id'
+  OrderId;
+  @UI.lineItem: [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20, importance: #HIGH  }]
+  @EndUserText.label: 'Table Id'
+  TableId;
+  @UI.hidden: true
+  ItemUuid;
+  @UI.lineItem: [{ position: 30, importance: #HIGH }]
+  @UI.identification: [{ position: 30, importance: #HIGH  }]
+  @Consumption.valueHelpDefinition: [
+  { entity: {
+             name: 'zrt_i_menu',
+             element: 'ItemId'
+            },
+             additionalBinding: [
+                                {
+                                    localElement: 'ItemName',
+                                    element: 'ItemName',
+                                    usage: #RESULT
+                                 },
+                                 {
+                                   localElement: 'UnitPrice',
+                                   element: 'Price',
+                                   usage: #RESULT
+                                 }
+                                 ]
+                                 }
+                                   ]
+  @EndUserText.label: 'Item Id'
+  ItemId;
+  @UI.lineItem: [{ position: 40, importance: #HIGH }]
+  @UI.identification: [{ position: 40, importance: #HIGH  }]
+  @EndUserText.label: 'Item Name'
+  ItemName;
+
+  @UI.lineItem: [{ position: 50, importance: #HIGH }]
+  @UI.identification: [{ position: 50, importance: #HIGH  }]
+  @EndUserText.label: 'Quantity'
+  Quantity;
+  @UI.lineItem: [{ position: 60, importance: #HIGH }]
+  @UI.identification: [{ position: 60, importance: #HIGH  }]
+  @EndUserText.label: 'Unit Price'
+  UnitPrice;
+  @UI.lineItem: [{ position: 70, importance: #HIGH }]
+  @UI.identification: [{ position: 70, importance: #HIGH  }]
+  @EndUserText.label: 'Amount'
+  Amount;
+  @UI.lineItem: [{ position: 80, importance: #HIGH }]
+  @UI.identification: [{ position: 80, importance: #HIGH  }]
+  @EndUserText.label: 'Item Status'
+  ItemStatus;
+  @UI.hidden: true
+  Currency;
+  @UI.hidden: true
+  LocalLastChangedAt;
+  //    /* Associations */
+  //    _order;
+  //    _table;
+}

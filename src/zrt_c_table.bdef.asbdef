@@ -1,0 +1,36 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for zrt_c_table alias _tables
+{
+//  use create;
+  use update;
+//  use delete;
+
+  use action Edit;
+  use action Resume;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use association _order { create; with draft; }
+}
+
+define behavior for zrt_c_order alias _order
+{
+  use update;
+  use delete;
+
+  use association _table { with draft; }
+  use association _orderitems { create; with draft; }
+}
+
+define behavior for zrt_c_order_item alias _orderitem
+{
+  use update;
+  use delete;
+
+  use association _order { with draft; }
+  use association _table { with draft; }
+}

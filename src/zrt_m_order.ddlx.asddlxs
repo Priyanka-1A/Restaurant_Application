@@ -1,0 +1,50 @@
+@Metadata.layer: #CUSTOMER
+@UI:  { headerInfo: {
+           typeName: 'Order',
+           typeNamePlural: 'Orders',
+           title: {
+               type: #STANDARD,
+               value: 'OrderId'
+           }},
+           presentationVariant: [{ sortOrder: [{ by: 'OrderId',
+           direction: #ASC}] }]
+        }
+annotate entity zrt_c_order with
+{
+  @UI.facet: [{ id: 'OrderId',
+                     purpose : #STANDARD,
+                     type : #IDENTIFICATION_REFERENCE,
+                     label : 'Orders',
+                     position: 10
+        },
+        { id : 'OrderItems',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 label: 'OrderItems',
+                 position: 20,
+                 targetElement: '_orderitems' }]
+  @UI.lineItem: [{ position: 10, importance: #HIGH }]
+  @UI.identification: [{ position: 10, importance: #HIGH  }]
+  @EndUserText.label: 'Order Id'
+  OrderId;
+  @UI.lineItem: [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20, importance: #HIGH  }]
+  @EndUserText.label: 'Table Id'
+  TableId;
+  @UI.lineItem: [{ position: 30, importance: #HIGH }]
+  @UI.identification: [{ position: 30, importance: #HIGH  }]
+  @EndUserText.label: 'OrderStatus'
+  OrderStatus;
+  @UI.lineItem: [{ position: 40, importance: #HIGH }]
+  @UI.identification: [{ position: 40, importance: #HIGH  }]
+  @EndUserText.label: 'Total Amount'
+  TotalAmount;
+  @UI.hidden: true
+  Currency;
+  @UI.hidden: true
+  LocalLastChangedAt;
+  //    /* Associations */
+  //    _orderitems;
+  //    _table;
+  //
+}

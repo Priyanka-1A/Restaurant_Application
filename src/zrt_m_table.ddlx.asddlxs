@@ -1,0 +1,58 @@
+@Metadata.layer: #CUSTOMER
+@UI:  { headerInfo: {
+           typeName: 'Table',
+           typeNamePlural: 'Tables',
+           title: {
+               type: #STANDARD,
+               value: 'TableId'
+           }},
+           presentationVariant: [{ sortOrder: [{ by: 'TableId',
+           direction: #ASC}] }]
+        }
+
+annotate entity zrt_c_table with
+{
+
+  @UI.facet: [
+    {
+      id: 'Tables',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Tables',
+      position: 10
+    },
+    {
+      id: 'Orders',
+      purpose: #STANDARD,
+      type: #LINEITEM_REFERENCE,
+      label: 'Orders',
+      position: 20,
+      targetElement: '_order'
+    }
+  ]
+  @UI.lineItem: [{ position: 10, importance: #HIGH }]
+  @UI.identification: [{ position: 10, importance: #HIGH  }]
+  @EndUserText.label: 'Table Id'
+  TableId;
+  @UI.lineItem: [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20, importance: #HIGH  }]
+  @EndUserText.label: 'Table Name'
+  TableName;
+  @UI.lineItem: [{ position: 30, importance: #HIGH }]
+  @UI.identification: [{ position: 30, importance: #HIGH  }]
+  @EndUserText.label: 'Status'
+  Status;
+  @UI.hidden: true
+  LocalCreatedBy;
+  @UI.hidden: true
+  LocalCreatedAt;
+  @UI.hidden: true
+  LocalLastChangedBy;
+  @UI.hidden: true
+  LocalLastChangedAt;
+  @UI.hidden: true
+  LastChangedAt;
+  //    /* Associations */
+  //    _order;element_name;
+
+}
