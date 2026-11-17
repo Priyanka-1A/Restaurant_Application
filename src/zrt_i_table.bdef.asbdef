@@ -12,7 +12,7 @@ etag master LocalLastChangedAt
   create; // ( authorization : global );
   update;
   delete;
-//  field ( readonly ) TableId;
+  field ( readonly ) TableId;
   association _order { create; with draft;}
 
   draft action Edit;
@@ -23,6 +23,8 @@ etag master LocalLastChangedAt
 //  {
 //  validation validateOrderItems;
 //  }
+//internal action recaltotalamount;
+
  mapping for zrt_table {
   TableId = table_id;
   TableName = table_name;
@@ -48,6 +50,10 @@ etag master LocalLastChangedAt
   field ( readonly ) TableId, TotalAmount;
   association _table{ with draft;}
   association _orderitems { create; with draft;}
+
+determination caltotalamount on modify { create; }
+
+internal action recaltotalamount;
 
   mapping for zrt_order {
   OrderId = order_id;
@@ -77,8 +83,10 @@ etag master LocalLastChangedAt
 determination CalculateAmount on modify
 {
 create;
-field quantity, unitprice;
+field quantity, unitprice, Currency;
 }
+
+determination caltotalamount on modify { create; field quantity, unitprice, Currency;}
 
   mapping for zrt_order_item {
   OrderId = order_id;

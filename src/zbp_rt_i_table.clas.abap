@@ -1,5 +1,9 @@
 CLASS zbp_rt_i_table DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zrt_i_table.
+protected section.
+private section.
 ENDCLASS.
 
-CLASS zbp_rt_i_table IMPLEMENTATION.
+
+
+CLASS ZBP_RT_I_TABLE IMPLEMENTATION.
 ENDCLASS.

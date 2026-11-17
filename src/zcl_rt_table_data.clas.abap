@@ -10,7 +10,9 @@ CLASS zcl_rt_table_data DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_rt_table_data IMPLEMENTATION.
+
+CLASS ZCL_RT_TABLE_DATA IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
